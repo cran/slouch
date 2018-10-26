@@ -82,7 +82,7 @@ abline(model3$beta_evolutionary$coefficients_bias_corr[,1],
 abline(model3$beta_primary$coefficients_bias_corr[,1], 
        col = "orange", lwd = 2)
 
-## ---- highlight = TRUE, fig.width=7, fig.height = 4, fig.pos = "H"-------
+## ---- highlight = TRUE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
 bodycentered <- neocortex$body_mass_g_log_mean - mean(neocortex$body_mass_g_log_mean)
 model4 <- 
   slouch.fit(phy = phy,
@@ -95,7 +95,7 @@ model4 <-
                                    neocortex$body_se_squared))
 model4
 
-## ---- highlight = TRUE, fig.width=7, fig.height = 4, eval=F, fig.pos = "H"----
+## ---- highlight = TRUE, fig.width=7, fig.height = 4, eval=F, fig.pos = "H", out.extra=""----
 #  model5 <- slouch.fit(phy = phy,
 #                       species = neocortex$species,
 #                       response = neocortex$neocortex_area_mm2_log_mean,
@@ -135,7 +135,7 @@ model6 <- slouch.fit(phy = phy,
 
 model6
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----
+## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H", out.extra=""----
 model7 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -191,7 +191,7 @@ vy <- seq(from = 0.001, to = 5, length.out = 15)
 h <- lseq(from = 0.001, to = 100, length.out = 15)
 vy <- lseq(from = 0.001, to = 5, length.out = 15)
 
-## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Three-dimensional joint support region for the estimates of half-lives and stationary variances, for the single-optimum model.", highlight = TRUE, warning=FALSE, fig.pos = "H"----
+## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Three-dimensional joint support region for the estimates of half-lives and stationary variances, for the single-optimum model.", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
 model_grid_0 <- slouch.fit(phy = phy,
                      hl_values = seq(0.001, 12, length.out = 20),
                      vy_values = seq(0.1, 1, length.out = 20),
@@ -200,7 +200,7 @@ model_grid_0 <- slouch.fit(phy = phy,
                      hillclimb = FALSE)
 plot(model_grid_0)
 
-## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Another slice of the log likelihood surface for the same single-optimum model", highlight = TRUE, warning=FALSE, fig.pos = "H"----
+## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Another slice of the log likelihood surface for the same single-optimum model", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
 model_grid_1 <- slouch.fit(phy = phy,
                      hl_values = seq(0.001, 150, length.out = 20),
                      vy_values = seq(0.1, 2.5, length.out = 20),
@@ -210,7 +210,7 @@ model_grid_1 <- slouch.fit(phy = phy,
 
 plot(model_grid_1)
 
-## ---- highlight = TRUE, eval = FALSE, fig.width=7, fig.height = 4, fig.pos = "H"----
+## ---- highlight = TRUE, eval = FALSE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
 #  library(plotly)
 #  p <- plot_ly(x = model0$supportplot$hl,
 #               y = model0$supportplot$vy,
