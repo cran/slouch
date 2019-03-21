@@ -1,4 +1,4 @@
-8b179d1c949d644fcb48be24131d2609 *DESCRIPTION
+4f0a13b66602cc6268b21437a9be813f *DESCRIPTION
 3687d2a69f8526cd98d93d27ae41c61f *NAMESPACE
 296acb052fa4e5669ffdd01d35dd2f41 *NEWS.md
 44e414f1d78522bd2bfd49af8a427462 *R/biascorrection.R
@@ -11,12 +11,12 @@ d9885de9d5ed6554856d641ff9815ec8 *R/interface.R
 877257729052d409ace520a8958013f7 *R/seed.R
 fed742bc176544aee7274b41b4671259 *R/slouch.R
 f57ff091c7b454a0c6273350826cbe6f *R/weightmatrix.R
-eec6092b20c65a2ea3682558f1124bec *build/vignette.rds
+9bfc0a225eec5172bbc47fc4735f0e25 *build/vignette.rds
 4749ef9fa000bac3faf7cae029a8bca3 *data/artiodactyla.rda
 2bb1cfac7ebe692876b9d964de12c664 *data/neocortex.rda
 c77ad602178a5a9bb06bbe016f735c7a *inst/doc/examples.R
 cabf2eafcfa891c279397b2df98576be *inst/doc/examples.Rmd
-e728a37462c888c9b1079b983809bd33 *inst/doc/examples.pdf
+1880b1ddfbf9290f4cd8f9fabff8d42d *inst/doc/examples.pdf
 6749acbf361b9f2d351377ca0cdff6dc *man/artiodactyla.Rd
 79b4aa875f12c25d0e1e3117c5c82228 *man/brown.fit.Rd
 d9419c510d751d09f136fa54c77aefd6 *man/hillclimbplot.Rd
@@ -31,8 +31,8 @@ d4c39fc9f73239941693840b939a2de2 *man/slouch-package.Rd
 197124042bdffa20c9dcacb560644381 *man/summary.slouch.Rd
 483c045e525f1cd95f2b677f742119af *tests/testthat.R
 2e163bb79f7d71c1c168670339ca73b4 *tests/testthat/dummy_data_slouch.txt
-1631c2b81e220900336fc70b59fff35f *tests/testthat/test_anova.R
-1fab5712581fff81a8021e3d96e72001 *tests/testthat/test_anticrash.R
-0cc5cc097e56f873b65ca8e17c092a28 *tests/testthat/test_weights.R
+a8c167e48b407487d5b273566c66ed90 *tests/testthat/test_anova.R
+6117eab5a8835d7147ff718ea536fdcf *tests/testthat/test_anticrash.R
+d38be21b13140466d56e9041517e330d *tests/testthat/test_weights.R
 cabf2eafcfa891c279397b2df98576be *vignettes/examples.Rmd
 3e3a7fd2822e9384ad95cd05cdf9a4b9 *vignettes/header.tex
