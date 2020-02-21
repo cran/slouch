@@ -16,6 +16,7 @@
                         mcov.random.cov,
                         estimate.Ya,
                         estimate.bXa,
+                        interactions,
                         hessian,
                         model,
                         support, 
@@ -170,7 +171,8 @@
                   support = support,
                   convergence = convergence,
                   model = model,
-                  name.response = name.response)
+                  name.response = name.response,
+                  interactions = interactions)
   
   
   seed <- seed(phy, ta, direct.cov, mv.direct.cov, random.cov, mv.random.cov)
@@ -184,7 +186,10 @@
   }else{
     ## Random numbers
     if (is.null(vy_values) & is.null(sigma2_y_values)){
-      vy_values <- stats::runif(1, 0, stats::var(response))
+      X0 <- slouch.modelmatrix(1000000, 0, tree, observations, control, evolutionary= F)
+      model0  <- stats::lm.fit(X0, observations$response)
+      vy_values <- stats::var(model0$residuals)
+      #vy_values <- stats::runif(1, 0, stats::var(response))
     }else{
       
     }

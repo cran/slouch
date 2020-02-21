@@ -1,4 +1,4 @@
-## ----setup, cache=FALSE, include=FALSE-----------------------------------
+## ----setup, cache=FALSE, include=FALSE----------------------------------------
 library(knitr)
 knitr::opts_knit$set(global.par = TRUE)
 #output <- opts_knit$get("rmarkdown.pandoc.to")
@@ -8,7 +8,7 @@ knitr::opts_knit$set(global.par = TRUE)
 opts_chunk$set(collapse = TRUE, results = 'markup')
 par(mar = rep(0,4))
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  install.packages("slouch")
 
 ## ---- warning=FALSE, echo = TRUE, message = FALSE, highlight = TRUE, fig.width = 7, fig.height = 5----
@@ -26,14 +26,14 @@ data(neocortex)
 ## Plot the tree
 plot(ladderize(phy), cex = 0.6)
 
-## ----include = FALSE-----------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 par(mar = c(5.1, 4.1, 4.1, 2.1))
 
-## ---- fig.width=7, fig.height = 4, highlight = TRUE----------------------
+## ---- fig.width=7, fig.height = 4, highlight = TRUE---------------------------
 ## Check whether they are lined up correctly
 neocortex$species == phy$tip.label
 
-## ---- highlight = TRUE---------------------------------------------------
+## ---- highlight = TRUE--------------------------------------------------------
 neocortex <- neocortex[match(phy$tip.label, neocortex$species), ]
 
 ## Check if they line up again
@@ -47,24 +47,27 @@ plot(x = braincentered,
      ylab = "Mean log neocortex area (mm2)")
 
 ## ---- highlight = TRUE, fig.width=7, fig.height = 4, fig.cap="The path-trajectory of the L-BFGS-B hillclimber algorithm.", fig.pos = "H"----
-model0 <- slouch.fit(phy = phy,
-                     species = neocortex$species,
-                     response = neocortex$neocortex_area_mm2_log_mean)
 
-## ---- hightlight = TRUE--------------------------------------------------
+model0 <- slouch.fit(phy = phy,
+                    species = neocortex$species,
+                    response = neocortex$neocortex_area_mm2_log_mean)
+
+## ---- hightlight = TRUE-------------------------------------------------------
 print(model0)
 
-## ---- hightlight = TRUE--------------------------------------------------
+## ---- hightlight = TRUE-------------------------------------------------------
 summary(model0)
 
-## ---- highlight=TRUE, fig.pos = "H"--------------------------------------
+## ---- highlight=TRUE, fig.pos = "H"-------------------------------------------
 model3 <- slouch.fit(phy = phy,
+                     hl_values = 1,
+                     vy_values = 0.05,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
                      random.cov = braincentered)
 model3
 
-## ---- highlight=TRUE, fig.pos = "H"--------------------------------------
+## ---- highlight=TRUE, fig.pos = "H"-------------------------------------------
 model3 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -105,10 +108,10 @@ model4
 #                       estimate.Ya = TRUE,
 #                       estimate.bXa = TRUE)
 
-## ----include = FALSE, fig.pos = "H"--------------------------------------
+## ----include = FALSE, fig.pos = "H"-------------------------------------------
 par(mar = rep(0, 4))
 
-## ---- fig.width=7, fig.height = 4, highlight = TRUE----------------------
+## ---- fig.width=7, fig.height = 4, highlight = TRUE---------------------------
 ## Inspect the internal node regimes
 ## These have order n+1, n+2, n+3 ...
 internal_regimes <- factor(phy$node.label)
@@ -123,10 +126,10 @@ plot(phy,
      edge.color = c("Black", "Orange", "blue")[edge_regimes], 
      edge.width = 3, cex = 0.6)
 
-## ----include = FALSE-----------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 par(mar = c(5.1, 4.1, 4.1, 2.1))
 
-## ---- highlight = TRUE, fig.pos = "H"------------------------------------
+## ---- highlight = TRUE, fig.pos = "H"-----------------------------------------
 model6 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -145,7 +148,7 @@ model7 <- slouch.fit(phy = phy,
 
 model7
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----
+## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
 model8 <- brown.fit(phy = phy,
                     species = neocortex$species,
                     response = neocortex$neocortex_area_mm2_log_mean,
@@ -153,7 +156,7 @@ model8 <- brown.fit(phy = phy,
 
 model8
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----
+## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
 model9 <- brown.fit(phy = phy,
                     species = neocortex$species,
                     response = neocortex$neocortex_area_mm2_log_mean,
@@ -162,10 +165,10 @@ model9 <- brown.fit(phy = phy,
 
 model9
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 model9$beta_primary$trend_diff
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----
+## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
 model10 <- brown.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -175,10 +178,10 @@ model10 <- brown.fit(phy = phy,
 
 model10
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 model10$beta_evolutionary$coefficients
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 ## The manual way
 h <- c(0.01, 0.1, 1, 5, 10, 15, 20, 100)
 vy <- h
