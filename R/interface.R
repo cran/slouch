@@ -19,6 +19,8 @@
 #' @param random.cov Independent variables each modeled as a brownian motion
 #' @param mv.random.cov Estimation variances for the brownian covariates. Must be the same shape as random.cov
 #' @param mcov.random.cov Estimation covariances between the response variable and random effect independent variables. Most be the same shape as random.cov
+#' @param ace An ape::ace object, with estimated ancestral character states. Optional
+#' @param anc_maps One of "regimes", "ace" or "simmap". "regimes" tells slouch to use `phy$node.label` to assign internal regimes. "ace" tells slouch to use ancestral posterior probabilities for ancestral regimes. "simmap" tells slouch to use the simmap mappings associated with `phy`
 #' @param hessian use the approximate hessian matrix at the likelihood peak as found by the hillclimber, to compute standard errors for the parameters that enter in parameter search.
 #' @param support a scalar indicating the size of the support set, defaults to 2 units of log-likelihood.
 #' @param convergence threshold of iterative GLS estimation for when beta is considered to be converged.
@@ -77,6 +79,8 @@ slouch.fit <- function(phy,
                        random.cov=NULL, 
                        mv.random.cov=NULL, 
                        mcov.random.cov=NULL,
+                       ace=NULL,
+                       anc_maps = "regimes",
                        estimate.Ya = FALSE,
                        estimate.bXa = FALSE,
                        interactions = FALSE,
@@ -140,6 +144,8 @@ slouch.fit <- function(phy,
               mcov.random.cov = mcov.random.cov,
               estimate.Ya = estimate.Ya,
               estimate.bXa = estimate.bXa,
+              ace = ace,
+              anc_maps = anc_maps,
               interactions = interactions,
               hessian = hessian,
               model = "ou",
@@ -181,6 +187,8 @@ brown.fit <- function(phy,
                       random.cov = NULL, 
                       mv.random.cov = NULL, 
                       mcov.random.cov = NULL,
+                      ace = NULL,
+                      anc_maps = "regimes",
                       estimate.Ya = FALSE,
                       interactions = FALSE,
                       hessian = FALSE,
@@ -229,6 +237,8 @@ brown.fit <- function(phy,
               random.cov = random.cov, 
               mv.random.cov = mv.random.cov, 
               mcov.random.cov = mcov.random.cov,
+              ace = ace,
+              anc_maps = anc_maps,
               estimate.Ya = estimate.Ya,
               estimate.bXa = FALSE,
               interactions = interactions,

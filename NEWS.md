@@ -1,6 +1,14 @@
+# slouch 2.1.5
+
+* Include functionality for allowing SIMMAP style trees to dictate the regimes painted on the tree. In other words, also allowing the regimes to change character state along the branches, instead of just at the branching events. 
+* Fixed bug where if there were multiple predictor variables modeled as BM, then the predictors were re-ordered
+* Bugfix for allowing a Brownian-motion model with a single trend (i.e. estimating the ancestral state and a single trend parameter, but no regime map)
+* Don't print the trend contrasts in the summary unless those transitions were actually present on the tree
+
 # slouch 2.1.4
 
 * Changed maintainer e-mail
+* Bugfix: model with random, continuous covariate was broken. Bug only relevant for installs from github, between commits ee5d38 and 04b103. CRAN repository not affected.
 
 # slouch 2.1.3
 

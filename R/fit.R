@@ -14,6 +14,8 @@
                         random.cov, 
                         mv.random.cov, 
                         mcov.random.cov,
+                        ace,
+                        anc_maps,
                         estimate.Ya,
                         estimate.bXa,
                         interactions,
@@ -51,6 +53,14 @@
     mv.response <- rep(0, times= length(response))
   }
   
+  if(anc_maps == "simmap"){
+    stopifnot("simmap" %in% class(phy))
+  }
+  
+  if("multiPhylo" %in% class(phy)){
+    stop("slouch does not support multiPhylo or multiSimmap")
+  }
+  
   # SPECIFY COMPONENTS THAT ARE COMMON TO ALL MODELS
   
   Y <- response
@@ -58,10 +68,19 @@
   
   if(!is.null(fixed.fact)){
     if(is.null(phy$node.label)){
-      stop("For categorical variables, the regimes corresponding to their primary optima need to be painted on all of the branches in the tree, and assigned to phy$node.label - use plot(phy) & nodelabels(phy$node.label) to see whether they are correct. See example.")
+      if(anc_maps == "regimes"){
+        stop("When using anc_maps=regimes the regimes corresponding to their primary optima need to be painted on all of the branches in the tree, and assigned to phy$node.label - use plot(phy) & nodelabels(phy$node.label) to see whether they are correct. See example.")
+      }
     }
     
-    regimes_internal <- phy$node.label
+    if(anc_maps == "regimes"){
+      regimes_internal <- phy$node.label
+    }else{
+      regimes_internal <- rep(NA, nrow(phy$edge) +1 - length(phy$tip.label))
+    }
+
+    
+    
     if(estimate.Ya & model == "ou"){
       tmp <- as.character(regimes_internal)
       tmp[1] <- "Ya"
@@ -70,7 +89,7 @@
     regimes_tip <- fixed.fact
     
     regimes <- concat.factor(regimes_tip, regimes_internal)
-    lineages <- lapply(1:n, function(e) lineage.constructor(phy, e, regimes)) #; names(lineages) <- phy$tip.label
+    lineages <- lapply(1:n, function(e) lineage.constructor(phy, e, anc_maps, regimes, ace)) #; names(lineages) <- phy$tip.label
   }else{
     regimes <- lineages <- NULL
   }
@@ -150,7 +169,8 @@
                tij = tij,
                times = times,
                lineages = lineages,
-               regimes = regimes)
+               regimes = regimes,
+               ace = ace)
   
   ## Cluster parameters concerning the type of model being run
   observations <- list(response = response,

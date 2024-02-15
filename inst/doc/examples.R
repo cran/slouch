@@ -11,7 +11,7 @@ par(mar = rep(0,4))
 ## ----eval = FALSE-------------------------------------------------------------
 #  install.packages("slouch")
 
-## ---- warning=FALSE, echo = TRUE, message = FALSE, highlight = TRUE, fig.width = 7, fig.height = 5----
+## ----warning=FALSE, echo = TRUE, message = FALSE, highlight = TRUE, fig.width = 7, fig.height = 5----
 # Load necessary packages
 library(ape)
 library(slouch)
@@ -29,36 +29,36 @@ plot(ladderize(phy), cex = 0.6)
 ## ----include = FALSE----------------------------------------------------------
 par(mar = c(5.1, 4.1, 4.1, 2.1))
 
-## ---- fig.width=7, fig.height = 4, highlight = TRUE---------------------------
+## ----fig.width=7, fig.height = 4, highlight = TRUE----------------------------
 ## Check whether they are lined up correctly
 neocortex$species == phy$tip.label
 
-## ---- highlight = TRUE--------------------------------------------------------
+## ----highlight = TRUE---------------------------------------------------------
 neocortex <- neocortex[match(phy$tip.label, neocortex$species), ]
 
 ## Check if they line up again
 neocortex$species == phy$tip.label
 
-## ---- fig.show='hold', highlight = TRUE, fig.width=7, fig.height = 4, fig.cap = "Scatter plot of mean log neocortex area (mm$^2$) on mean log brain mass (g).", fig.pos = "H", out.extra = ""----
+## ----fig.show='hold', highlight = TRUE, fig.width=7, fig.height = 4, fig.cap = "Scatter plot of mean log neocortex area (mm$^2$) on mean log brain mass (g).", fig.pos = "H", out.extra = ""----
 braincentered <- neocortex$brain_mass_g_log_mean - mean(neocortex$brain_mass_g_log_mean)
 plot(x = braincentered, 
      y = neocortex$neocortex_area_mm2_log_mean, 
      xlab = "Mean log brain mass (g)",
      ylab = "Mean log neocortex area (mm2)")
 
-## ---- highlight = TRUE, fig.width=7, fig.height = 4, fig.cap="The path-trajectory of the L-BFGS-B hillclimber algorithm.", fig.pos = "H"----
+## ----highlight = TRUE, fig.width=7, fig.height = 4, fig.cap="The path-trajectory of the L-BFGS-B hillclimber algorithm.", fig.pos = "H"----
 
 model0 <- slouch.fit(phy = phy,
                     species = neocortex$species,
                     response = neocortex$neocortex_area_mm2_log_mean)
 
-## ---- hightlight = TRUE-------------------------------------------------------
+## ----hightlight = TRUE--------------------------------------------------------
 print(model0)
 
-## ---- hightlight = TRUE-------------------------------------------------------
+## ----hightlight = TRUE--------------------------------------------------------
 summary(model0)
 
-## ---- highlight=TRUE, fig.pos = "H"-------------------------------------------
+## ----highlight=TRUE, fig.pos = "H"--------------------------------------------
 model3 <- slouch.fit(phy = phy,
                      hl_values = 1,
                      vy_values = 0.05,
@@ -67,7 +67,7 @@ model3 <- slouch.fit(phy = phy,
                      random.cov = braincentered)
 model3
 
-## ---- highlight=TRUE, fig.pos = "H"-------------------------------------------
+## ----highlight=TRUE, fig.pos = "H"--------------------------------------------
 model3 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -75,7 +75,7 @@ model3 <- slouch.fit(phy = phy,
                      random.cov = braincentered,
                      mv.random.cov = neocortex$brain_se_squared)
 
-## ---- fig.show='asis', highlight = TRUE, fig.width=7, fig.height = 4, fig.cap = "The evolutionary (black) and optimal (orange) regression lines for the model of mean log neocortex area (mm$^2$) on mean log brain mass (g), both corrected for bias due to measurement error in mean log brain mass.", fig.pos = "H", out.extra=""----
+## ----fig.show='asis', highlight = TRUE, fig.width=7, fig.height = 4, fig.cap = "The evolutionary (black) and optimal (orange) regression lines for the model of mean log neocortex area (mm$^2$) on mean log brain mass (g), both corrected for bias due to measurement error in mean log brain mass.", fig.pos = "H", out.extra=""----
 plot(x = braincentered, 
      y = neocortex$neocortex_area_mm2_log_mean, 
      xlab = "Mean log brain mass (g)",
@@ -85,7 +85,7 @@ abline(model3$beta_evolutionary$coefficients_bias_corr[,1],
 abline(model3$beta_primary$coefficients_bias_corr[,1], 
        col = "orange", lwd = 2)
 
-## ---- highlight = TRUE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
+## ----highlight = TRUE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
 bodycentered <- neocortex$body_mass_g_log_mean - mean(neocortex$body_mass_g_log_mean)
 model4 <- 
   slouch.fit(phy = phy,
@@ -98,7 +98,7 @@ model4 <-
                                    neocortex$body_se_squared))
 model4
 
-## ---- highlight = TRUE, fig.width=7, fig.height = 4, eval=F, fig.pos = "H", out.extra=""----
+## ----highlight = TRUE, fig.width=7, fig.height = 4, eval=F, fig.pos = "H", out.extra=""----
 #  model5 <- slouch.fit(phy = phy,
 #                       species = neocortex$species,
 #                       response = neocortex$neocortex_area_mm2_log_mean,
@@ -111,7 +111,7 @@ model4
 ## ----include = FALSE, fig.pos = "H"-------------------------------------------
 par(mar = rep(0, 4))
 
-## ---- fig.width=7, fig.height = 4, highlight = TRUE---------------------------
+## ----fig.width=7, fig.height = 4, highlight = TRUE----------------------------
 ## Inspect the internal node regimes
 ## These have order n+1, n+2, n+3 ...
 internal_regimes <- factor(phy$node.label)
@@ -129,7 +129,7 @@ plot(phy,
 ## ----include = FALSE----------------------------------------------------------
 par(mar = c(5.1, 4.1, 4.1, 2.1))
 
-## ---- highlight = TRUE, fig.pos = "H"-----------------------------------------
+## ----highlight = TRUE, fig.pos = "H"------------------------------------------
 model6 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -138,7 +138,7 @@ model6 <- slouch.fit(phy = phy,
 
 model6
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H", out.extra=""----
+## ----fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H", out.extra=""----
 model7 <- slouch.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -148,7 +148,7 @@ model7 <- slouch.fit(phy = phy,
 
 model7
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
+## ----fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----------
 model8 <- brown.fit(phy = phy,
                     species = neocortex$species,
                     response = neocortex$neocortex_area_mm2_log_mean,
@@ -156,7 +156,7 @@ model8 <- brown.fit(phy = phy,
 
 model8
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
+## ----fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----------
 model9 <- brown.fit(phy = phy,
                     species = neocortex$species,
                     response = neocortex$neocortex_area_mm2_log_mean,
@@ -168,7 +168,7 @@ model9
 ## -----------------------------------------------------------------------------
 model9$beta_primary$trend_diff
 
-## ---- fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"----------
+## ----fig.width = 7, fig.height = 4, highlight = TRUE, fig.pos = "H"-----------
 model10 <- brown.fit(phy = phy,
                      species = neocortex$species,
                      response = neocortex$neocortex_area_mm2_log_mean,
@@ -194,7 +194,7 @@ vy <- seq(from = 0.001, to = 5, length.out = 15)
 h <- lseq(from = 0.001, to = 100, length.out = 15)
 vy <- lseq(from = 0.001, to = 5, length.out = 15)
 
-## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Three-dimensional joint support region for the estimates of half-lives and stationary variances, for the single-optimum model.", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
+## ----fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Three-dimensional joint support region for the estimates of half-lives and stationary variances, for the single-optimum model.", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
 model_grid_0 <- slouch.fit(phy = phy,
                      hl_values = seq(0.001, 12, length.out = 20),
                      vy_values = seq(0.1, 1, length.out = 20),
@@ -203,7 +203,7 @@ model_grid_0 <- slouch.fit(phy = phy,
                      hillclimb = FALSE)
 plot(model_grid_0)
 
-## ---- fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Another slice of the log likelihood surface for the same single-optimum model", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
+## ----fig.show='asis', fig.width=6, fig.height = 4, fig.cap = "Another slice of the log likelihood surface for the same single-optimum model", highlight = TRUE, warning=FALSE, fig.pos = "H", out.extra=""----
 model_grid_1 <- slouch.fit(phy = phy,
                      hl_values = seq(0.001, 150, length.out = 20),
                      vy_values = seq(0.1, 2.5, length.out = 20),
@@ -213,7 +213,7 @@ model_grid_1 <- slouch.fit(phy = phy,
 
 plot(model_grid_1)
 
-## ---- highlight = TRUE, eval = FALSE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
+## ----highlight = TRUE, eval = FALSE, fig.width=7, fig.height = 4, fig.pos = "H", out.extra=""----
 #  library(plotly)
 #  p <- plot_ly(x = model0$supportplot$hl,
 #               y = model0$supportplot$vy,

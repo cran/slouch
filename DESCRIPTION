@@ -1,8 +1,8 @@
 Package: slouch
 Type: Package
 Title: Stochastic Linear Ornstein-Uhlenbeck Comparative Hypotheses
-Version: 2.1.4
-Date: 2020-02-21
+Version: 2.1.5
+Date: 2024-02-15
 Authors@R: c(person("Bj\u00F8rn Tore", "Kopperud", role =c("aut", "cre"), email = "kopperud@protonmail.com"),
              person("Jason", "Pienaar", role = c("aut")),
              person("Kjetil Lysne", "Voje", role = c("aut")),
@@ -13,16 +13,16 @@ Description: An implementation of a phylogenetic comparative method. It can fit 
 License: GPL-2
 LazyData: FALSE
 ByteCompile: FALSE
-RoxygenNote: 7.0.2
+RoxygenNote: 7.2.3
 Depends: R (>= 3.0.0), base, stats
 Imports: crayon, parallel, ape, memoise
 Suggests: knitr, rmarkdown, bookdown, testthat
-URL: http://github.com/kopperud/slouch
-BugReports: http://github.com/kopperud/slouch/issues
+URL: https://github.com/kopperud/slouch
+BugReports: https://github.com/kopperud/slouch/issues
 VignetteBuilder: knitr
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2020-02-21 12:25:22 UTC; bkopper
+Packaged: 2024-02-15 14:04:16 UTC; bkopper
 Author: Bjørn Tore Kopperud [aut, cre],
   Jason Pienaar [aut],
   Kjetil Lysne Voje [aut],
@@ -31,4 +31,4 @@ Author: Bjørn Tore Kopperud [aut, cre],
   Mark Grabowski [ctb]
 Maintainer: Bjørn Tore Kopperud <kopperud@protonmail.com>
 Repository: CRAN
-Date/Publication: 2020-02-21 13:30:02 UTC
+Date/Publication: 2024-02-15 14:30:02 UTC

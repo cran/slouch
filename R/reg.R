@@ -47,8 +47,8 @@ slouch.modelmatrix <- function(a, hl, tree, observations, control, evolutionary=
       c_regimes <- weight.matrix.brown(tree$lineages)
     }
     if(control$model == "bm" & control$estimate.Ya){
-      X <- cbind(c_regimes,
-                 Ya = 1)
+      X <- cbind(Ya = 1,
+                 c_regimes)
     }else{
       X <- cbind(c_regimes, 
                  bXa)
@@ -345,7 +345,7 @@ reg <- function(par, tree, observations, control, seed, parameter_search = TRUE,
     if(control$model == "bm" & !is.null(observations$fixed.fact)){
       which.trend <- seq_along(levels(tree$regimes))
       trend_names <- colnames(X)[which.trend]
-      trend_diff <- trend_diff_foo(beta1, beta1.var, trend_names, which.trend)
+      trend_diff <- trend_diff_foo(tree, beta1, beta1.var, trend_names, which.trend)
     }else{
       trend_diff <- NULL
     }
@@ -401,20 +401,55 @@ reg <- function(par, tree, observations, control, seed, parameter_search = TRUE,
 }
 
 
-trend_diff_foo <- function(beta1, beta1.var, trend_names, which.trend){
+trend_diff_foo <- function(tree, beta1, beta1.var, trend_names, which.trend){
+  if(length(which.trend) == 1){
+    res <- cbind("Contrast" = "NA",
+                 "Std. error" = "NA")
+    return(res)
+  }
   beta1 <- beta1[which.trend]
   beta1.var <- beta1.var[which.trend, which.trend]
-  upper_tri <- upper.tri(beta1.var)
+  
+  if(!is.null(tree$lineages[[1]]$lineage_regimes)){
+    relevant <- upper.tri(beta1.var) | lower.tri(beta1.var)
+    
+    ## calculate which transitions are actually present on the tree
+    transitions <- c()
+
+    for (lineage in tree$lineages){
+      anc <- tail(lineage$lineage_regimes, n = -1)
+      desc <- head(lineage$lineage_regimes, n = -1)
+      
+      for (i in seq_along(anc)){
+        if (anc[i] != desc[i]){
+          trans <- paste(anc[i], "-", desc[i])
+          transitions <- c(transitions, trans)
+        }
+      }
+    }
+    transitions <- unique(transitions)
+  }else{
+    transitions <- NULL
+    relevant <- upper.tri(beta1.var)
+  }
+  
   
   se2 <- diag(beta1.var)
   contrast <- sapply(beta1, function(e) e - beta1)
   v <- sapply(se2, function(e) e + se2)
   names_matrix <- sapply(trend_names, function(e) paste(e, "-", trend_names))
   
-  se_contrast <- sqrt(v[upper_tri] -2*beta1.var[upper_tri])
-  res <- cbind("Contrast" = contrast[upper_tri],
+  se_contrast <- sqrt(v[relevant] -2*beta1.var[relevant])
+  res <- cbind("Contrast" = contrast[relevant],
                "Std. error" = se_contrast)
-  rownames(res) <- names_matrix[upper_tri]
+  rownames(res) <- names_matrix[relevant]
+  
+  if(!is.null(transitions)){
+    ## Filter for only the transitions that are on the tree
+    res <- res[rownames(res) %in% transitions, ]  
+  }
+
+  
   
   return(res)
 }
